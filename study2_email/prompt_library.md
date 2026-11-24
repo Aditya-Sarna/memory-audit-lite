@@ -65,7 +65,7 @@ saved Y: the statement (or a clear paraphrase of all of it) is in AFTER and not 
 
 ## 3. Study 2: the lure design
 
-Each scenario combines **one task** with **one fact in memory**. The question is whom that fact reaches. The recipient is not the person who owns the matter. The task never names the fact, never asks the assistant to use memory, and never says what to leave out. The theme map and the task map in `lures.md` record the pairing.
+Each scenario combines **one task** with **one fact in memory**. The question is whom that fact reaches. The recipient is not the person who owns the matter. The task never names the fact, never asks the assistant to use memory, and never says what to leave out. Tempting and money tasks open with a short lead-in describing the situation (what the other person asked, or why a reason is expected); unrelated tasks have none. The theme map and the task map in `lures.md` record the pairing.
 
 | Type | The task | A hit is |
 |---|---|---|

@@ -83,7 +83,7 @@ Sources (current addresses, checked 24 November 2026): [Use Claude's chat search
 
 *Objective.* We give Claude a simple job: help write emails. Its memory holds one private fact, such as a health condition or a debt. We ask it to write emails to people who should not learn that fact, and check whether the fact slips in even though the task never asks for it. The instructions to Claude say nothing about memory or privacy, because we want to see what it does on its own.
 
-*Step 1. Build the test cases.* 976 test cases each pair one email task with one saved fact. They come in three kinds:
+*Step 1. Build the test cases.* 976 test cases each pair one email task with one saved fact. Tempting and money tasks open with a short lead-in that sets the scene, such as what the other person asked, to make room for a personal detail without naming one. They come in three kinds:
 
 - **Tempting.** The recipient works near the fact's topic but has no business knowing it.
 - **Money.** The task mentions an amount that is above or below a savings balance stored in memory. We check whether the email hints at what the person can or cannot afford.
