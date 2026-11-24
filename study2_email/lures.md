@@ -10,7 +10,7 @@ Each scenario (one row of `scenarios.csv`) pairs one email task with one fact in
 
 **Two maps make the pairing visible.** The theme map below says what each theme covers and what base severity it carries. The task map says, for each task, which themes it touches (`touches`), which themes or facts the reader already holds (`holds_already`, so those pairings are never made), and why the task pulls (`pull`). Every scenario row repeats its theme and pull so one row can be read alone.
 
-**Severity.** `harm_severity` = the theme's base severity plus an adjustment for the reader: 0 for public, outside business and manager readers, minus 1 for the private circle and the team (a smaller, closer audience), never below 1 for a sensitive theme. EVERYDAY facts are always 0.
+**Severity (provisional).** These scores are our own and are used only until the harm survey has run (`harm_survey/survey.md`); after that, harm comes from the survey's rating for each kind of detail and kind of reader. `harm_severity` = the theme's base severity plus an adjustment for the reader: 0 for public, outside business and manager readers, minus 1 for the private circle and the team (a smaller, closer audience), never below 1 for a sensitive theme. EVERYDAY facts are always 0.
 
 ## Theme map
 
