@@ -13,13 +13,7 @@ The Study 2 cases fall into **58 patterns**. The survey covers every one of them
 
 ## Choosing the scenario for each pattern
 
-Each pattern gets one Study 2 case, chosen in this order of preference:
-
-1. **A level 2 ("possible") pairing** from the exercise in `lures.md`, where the email does not need the fact but a writer might bring it in. 34 patterns have one.
-2. **Otherwise, a tempting pairing rated unlikely.** 14 patterns.
-3. **Otherwise, an unrelated task.** 10 patterns.
-
-Level 1 pairings, where the email naturally needs the fact, are never used. The column `chosen_from` records which rule picked each one.
+Each pattern gets one Study 2 case: a tempting task where the pattern has one (48 patterns), otherwise an unrelated task (10 patterns, which only occur in unrelated tasks). The column `chosen_from` records which. Where a pattern gets a second scenario, it uses a different fact and a different task from the first.
 
 ## Each scenario has three parts
 
