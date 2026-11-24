@@ -129,7 +129,7 @@ We use only private facts (the sensitive cases with harm score 2 or 3 that make 
 *Step 4. Add activity on a 3 × 3 grid.* We vary two kinds of activity:
 
 - **Sessions:** 3, 6 or 12 new chats, each with one unrelated question such as "What is the capital of Australia?".
-- **Memory saves:** 25, 100 or 250 bland facts that Claude is asked to remember, 25 per chat, such as "Likes the sound of cricket commentary". They contain no names, numbers or sensitive topics.
+- **Memory saves:** 25, 100 or 250 bland facts that Claude is asked to remember, 25 per chat. Each is a short everyday moment in the first person, such as "I caught the sound of cricket commentary this afternoon and it made me smile. I like that sound." They contain no names, numbers or sensitive topics.
 
 Three levels of each make nine points. Afterwards we download the memory and count the notes, to confirm the saves really became new notes rather than being merged into old ones.
 
