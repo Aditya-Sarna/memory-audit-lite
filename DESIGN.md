@@ -80,8 +80,7 @@ Sources (current addresses, checked 24 November 2026): [Use Claude's chat search
 *Open design choices.*
 
 1. Five facts in one message may be saved less often than one fact per chat. Should we run a small check of single-fact chats?
-2. If Anthropic's pages add or change a rule before we lock the plan, which of our described-only groups should gain an expectation?
-3. If a fact is saved but merged into another note or reworded, when does that count as saved rather than unclear?
+2. If a fact is saved but merged into another note or reworded, when does that count as saved rather than unclear?
 
 ## Workstream 2: Do saved private details leak into emails? (Study 2)
 
@@ -163,14 +162,6 @@ Three levels of each make nine points. Afterwards we download the memory and cou
 
 1. The middle grid levels (6 sessions and 100 saves) are our own picks. Should they change?
 2. Is a cap of 10 cases right, given that each case costs about 213 chats?
-
-## What this design cannot show
-
-- **One person, one assistant, one date.** The results describe this made-up person, this email assistant and the Claude model on the day it was tested. They are not a general rate for Claude. Every report carries its date, and the model in use is recorded every day. If the model changes partway through, the data is split at that point.
-- **Most groups are described, not judged.** Anthropic's pages name only a few topics, so for most kinds of fact we can say how often they are saved, but not whether that breaks a rule.
-- **Memory is a product that changes.** Anthropic can change how memory works at any time, so the rules table is checked again before each study starts.
-- **Paraphrased leaks are hard to catch.** The invented-word check misses a fact told in other words. That is why people review every label.
-- **Study 3 may be small.** It depends on how many leaks Study 2 finds. With few cases, Study 3 can describe what happened but cannot measure how often it happens.
 
 ## Running the kit
 
