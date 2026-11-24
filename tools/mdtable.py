@@ -1,4 +1,4 @@
-"""Read and write the markdown tables that hold the data libraries (facts, lures, rules). A literal pipe inside a cell is written \\| ."""
+"""Read and write the markdown tables that hold the data libraries (facts, lures). A literal pipe inside a cell is written \\| ."""
 import re
 def _split(line):
     cells = re.split(r'(?<!\\)\|', line.strip()); cells = cells[1:-1]

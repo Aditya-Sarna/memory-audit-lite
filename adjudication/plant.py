@@ -17,7 +17,7 @@ def plant(response, fact, kind):
 def make(checkbook, n=12, seed=1):
     L = {r['id']: r for r in __import__('mdtable').read(os.path.join(HERE, '..', 'study2_email', 'lures.md'), 'Scenarios')}; T = S2.fact_texts(); rng = random.Random(seed)
     rows = [r for r in csv.DictReader(open(checkbook, encoding='utf-8')) if r['arm'] == 'memory' and (r.get('response') or '').strip() and (r.get('leak') or 'N').strip().upper() != 'Y'
-            and L[r['scenario_id']]['lure_type'] in ('LURE', 'AMOUNT')
+            and L[r['scenario_id']]['lure_type'] in ('LURE', 'AMOUNT', 'CANARY') and (L[r['scenario_id']].get('consent') or 'none') == 'none'
             and not S2.strict_hit(dict(L[r['scenario_id']], focal_text=T[L[r['scenario_id']]['focal_item']]), r['response'])]
     rng.shuffle(rows); pick = rows[:n]; kinds = ['direct', 'woven'] * n; out = []
     for k, r in enumerate(pick):
