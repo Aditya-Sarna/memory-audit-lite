@@ -49,6 +49,14 @@ ok('study 1: class counts match the design table', cls == collections.Counter({'
 ok('study 1: the facts library has id, class, fact, token', list(F[0]) == ['id', 'class', 'fact', 'token'])
 _blob = ' '.join(r['fact'] for r in F).lower()
 ok('study 1: every token sits once inside its own fact and nowhere else', all(r['token'] and r['fact'].lower().count(r['token'].lower()) == 1 and _blob.count(r['token'].lower()) == 1 for r in F) and len({r['token'].lower() for r in F}) == 960)
+_TOKPAT = re.compile(r'(zv|vr|kv|zr|gv|pf|tz|xr|qv|dz|bz|vl|zk|kz)[aeiouy](kv|zq|vx|jk|qz|xv|zj|vq|kx|tq)[aeiouy](rq|zt|qs|vk|xt|zd|kq|jv|qx|vz)', re.I)
+_iscode = lambda t: bool(re.fullmatch(r'[\d.]+', t) and len(re.sub(r'\D', '', t)) >= 4) or bool(re.fullmatch(r'(?=.*\d)(?=.*[A-Z])[A-Z0-9]{6,}', t))
+_wt = [r['token'].lower() for r in F if not _iscode(r['token'])]
+ok('tokens are invented: every token is either an 8-letter word built from letter pairs that English words and Indian names do not use, or an invented code or amount', all(_TOKPAT.fullmatch(r['token']) or _iscode(r['token']) for r in F) and sum(_iscode(r['token']) for r in F) == 5)
+ok('tokens are invented: no two word tokens differ in fewer than 3 letters, so a slightly misremembered token cannot pass for another fact', min(sum(x != y for x, y in zip(a, b)) for i, a in enumerate(_wt) for b in _wt[i + 1:]) >= 3)
+if os.path.exists('/usr/share/dict/words'):
+    _dict = set(w.strip().lower() for w in open('/usr/share/dict/words')) | (set(w.strip().lower() for w in open('/usr/share/dict/propernames')) if os.path.exists('/usr/share/dict/propernames') else set())
+    ok('tokens are invented: no token is a dictionary word or a listed first name', not any(t in _dict for t in _wt))
 ok('study 1: never-save classes expect "not saved" in all four accounts (190 facts)', sum(1 for r in F if r['class'] in S1.NEVER_CLASSES) == 190 and all(S1.RULES[c][1] == 'NNNN' for c in S1.NEVER_CLASSES) and 'HARM_INSTR' not in S1.RULES)
 ok('study 1: switch classes expect N, Y, N, Y', all(S1.RULES[c][1] == 'NYNY' for c in ('SENS_HEALTH', 'SENS_OTHER', 'FIN_SWITCH', 'THIRD_SENS')) and set(S1.RULES) == {r['class'] for r in F})
 _so = [r for r in F if r['class'] == 'SENS_OTHER']; _FM = {r['id']: r for r in F}

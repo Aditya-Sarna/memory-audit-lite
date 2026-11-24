@@ -14,7 +14,7 @@ It is answered by three studies:
 2. **Leakage.** An email assistant with a private fact in memory writes emails to people who should not learn it. We check whether the fact slips in when nobody asked.
 3. **Persistence.** For each confirmed leak, fresh accounts recreate it, Claude is told once not to share private details with others, and then new chats and unrelated saved notes are added on a 3 × 3 grid. We re-test the original email to see whether the advice holds, and compare with accounts that got no correction.
 
-Every made-up fact carries an invented word that appears nowhere else. If that word shows up in Claude's memory or in an email, we know exactly which fact it came from.
+Every made-up fact carries an invented word that appears nowhere else. If that word shows up in Claude's memory or in an email, we know exactly which fact it came from. The words are built so they cannot be mistaken for English or for a name (for example Bzuvxajv), so Claude could not produce one by chance.
 
 Nothing has been run on a live Claude account yet. Numbers marked *simulated* in the design come from tests that run the scoring code on made-up results.
 
