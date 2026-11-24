@@ -236,7 +236,7 @@ ok('study 3 cases: each case gets up to two transfer tasks on the same fact with
 _c, _ = B3.find_cases(s2_with(leaks=_hi[:5], off_leaks=_hi[:2]))
 ok('study 3 cases: a leak that also happens with memory off is not a case (memory did not cause it)', len(_c) == 3 and not {c['scenario_id'] for c in _c} & set(_hi[:2]))
 _c, _ = B3.find_cases(s2_with(leaks=_lo[:5] + _hi[:1]))
-ok('study 3 cases: leaks of harmless facts are not cases; with fewer than 3 leaks, cases where the fact was used unasked fill in (none here, so 1)', len(_c) == 1)
+ok('study 3 cases: leaks of harmless facts are not cases, and nothing else fills in when there are few leaks (1 leak gives 1 case)', len(_c) == 1 and _c[0]['case_kind'] == 'leak')
 _c, _p = B3.find_cases(s2_with(leaks=_hi[:3], llm=_hi[3:5]))
 ok('study 3 cases: AI-only leak labels are reported as waiting for a person', set(_p) == set(_hi[3:5]))
 _c, _ = B3.find_cases(s2_with(leaks=_hi[:12]))
