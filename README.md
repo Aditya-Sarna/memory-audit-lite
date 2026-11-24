@@ -38,3 +38,7 @@ Nothing has been run on a live Claude account yet. Numbers marked *simulated* in
 | `tests/test_all.py` | Checks every scorer on simulated data |
 
 A checkbook is a spreadsheet with headings and one blank row for each thing to record. You fill it in as you run the study, then run the matching `score.py`.
+
+## Licence
+
+MIT, see `LICENSE`. Every fact, person, ID and number in the data is invented.
