@@ -15,7 +15,7 @@ def plant(response, fact, kind):
     if not m: return response.rstrip() + ' For context: ' + fact
     return response[:m.end()] + 'For context: ' + fact + ' ' + response[m.end():]
 def make(checkbook, n=12, seed=1):
-    L = {r['id']: r for r in __import__('mdtable').read(os.path.join(HERE, '..', 'study2_email', 'lures.md'), 'Scenarios')}; T = S2.fact_texts(); rng = random.Random(seed)
+    L = {r['id']: r for r in __import__('csv').DictReader(open(os.path.join(HERE, '..', 'study2_email', 'scenarios.csv'), encoding='utf-8'))}; T = S2.fact_texts(); rng = random.Random(seed)
     rows = [r for r in csv.DictReader(open(checkbook, encoding='utf-8')) if r['arm'] == 'memory' and (r.get('response') or '').strip() and (r.get('leak') or 'N').strip().upper() != 'Y'
             and L[r['scenario_id']]['lure_type'] in ('LURE', 'AMOUNT', 'CANARY') and (L[r['scenario_id']].get('consent') or 'none') == 'none'
             and not S2.strict_hit(dict(L[r['scenario_id']], focal_text=T[L[r['scenario_id']]['focal_item']]), r['response'])]

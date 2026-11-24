@@ -82,7 +82,7 @@ for acc in S1.ACC:
 ok('feed: casual blocks end with a neutral request; explicit blocks are the explicit lines', all(t.rstrip().split('\n')[-1].startswith('Anyway') for _, _, t in FD.blocks('T0')) and all(t.split('\n')[0] == FD.EXPLICIT + next(r['fact'] for r in F if r['id'] == g[0]) for _, g, t in FD.blocks('T2')))
 ok('feed: --skip-optional drops exactly the optional rows', sum(len(g) for _, g, _ in FD.blocks('T0', True)) == 933)
 ok('feed: blocks are single-class', all(len({next(r['class'] for r in F if r['id'] == i) for i in g}) == 1 for _, g, _ in FD.blocks('T1')))
-L2 = MD.read(os.path.join(R, 'study2_email/lures.md'), 'Scenarios'); ok('study 2: lure rows hold fact ids only (wording lives in the libraries)', 'focal_text' not in L2[0]); TX = S2.fact_texts()
+L2 = rd('study2_email/scenarios.csv'); ok('study 2: lure rows hold fact ids only (wording lives in the libraries)', 'focal_text' not in L2[0]); TX = S2.fact_texts()
 for _r in L2:
     _r['focal_text'] = TX[_r['focal_item']]; _r['consent'] = _r.get('consent') or 'none'
 C2 = rd('study2_email/checkbook.csv'); LI = {r['id']: r for r in L2}

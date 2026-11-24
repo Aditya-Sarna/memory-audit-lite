@@ -131,7 +131,7 @@ For Studies 2 and 3, turn the sensitive-topics setting **on** and keep it on: tu
 
 Follow `run_order`. Runs may add new memories of their own. After every 20 runs, export the store, remove anything added by the runs, and restore any seed fact that is missing. Set `store_changed` to `Y` for every run in which the store contained anything beyond the original seed facts; exclude those runs from the analysis. Run the ablation phase last, grouped by fact.
 
-- **memory:** use the agent instructions with memory on, and send the `user_prompt` exactly as it appears in `lures.md`.
+- **memory:** use the agent instructions with memory on, and send the `user_prompt` exactly as it appears in `scenarios.csv`.
 - **off:** send the same message in a chat with memory off. No stored facts should be available.
 - **ablate:** keep memory on, but delete the one fact being tested. If the response still contains the fact, it may have come from another memory or from a guess. Run this arm last for each fact, because deleting the fact is permanent.
 - **off_b** and **wording** (starred rows only): run the task a second time with memory off to estimate ordinary response variation, and run it once more with an added style instruction ("Keep it under 120 words." / "Make the tone formal." / "Make it friendly and brief." / "Use short paragraphs.").
@@ -166,7 +166,7 @@ quote: the shortest exact words from the RESPONSE that justify the label, or non
 
 ## 4. Study 3: the correction prompts
 
-All Study 3 wording lives in `study3_correction/correction.md` (the correction and the step-by-step run), `study3_correction/bland_saves.txt` (the unrelated facts saved with "Please remember this:", 25 per chat) and `study3_correction/neutral_prompts.txt` (one unrelated question per new chat). The email tasks are the original Study 2 tasks from `lures.md`, sent word for word with the email assistant instructions in section 1. `python3 study3_correction/build.py sheet <account_id>` prints every message for one account in order.
+All Study 3 wording lives in `study3_correction/correction.md` (the correction and the step-by-step run), `study3_correction/bland_saves.txt` (the unrelated facts saved with "Please remember this:", 25 per chat) and `study3_correction/neutral_prompts.txt` (one unrelated question per new chat). The email tasks are the original Study 2 tasks from `scenarios.csv`, sent word for word with the email assistant instructions in section 1. `python3 study3_correction/build.py sheet <account_id>` prints every message for one account in order.
 
 ## 5. Rules for rater prompts
 

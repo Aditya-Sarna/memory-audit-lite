@@ -87,7 +87,7 @@ def sheet(account_id):
     cases = {c['case_id']: c for c in csv.DictReader(open(os.path.join(HERE, 'cases.csv'), encoding='utf-8'))}
     c = cases[account_id.split('-')[0]]; acc = [a for a in accounts(c) if a[0] == account_id]
     if not acc: print('unknown account'); sys.exit(1)
-    _, corr, s, w = acc[0]; L = {r['id']: r for r in mdtable.read(os.path.join(ROOT, 'study2_email', 'lures.md'), 'Scenarios')}
+    _, corr, s, w = acc[0]; L = {r['id']: r for r in csv.DictReader(open(os.path.join(ROOT, 'study2_email', 'scenarios.csv'), encoding='utf-8'))}
     F = {r['id']: r['fact'] for r in mdtable.read(os.path.join(ROOT, 'study1_storage', 'facts.md'))}
     out = [f'# Account {account_id}: {"with" if corr == "Y" else "WITHOUT (control)"} the correction, {s} unrelated sessions, {w} unrelated saves. New throwaway account, memory on, sensitive topics on.',
            f'Email assistant instructions for every email task:\n{agent_text()}', '',

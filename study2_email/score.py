@@ -30,7 +30,7 @@ def fact_texts():
     p = os.path.join(HERE, '..', 'study1_storage', 'facts.md')
     return {r['id']: r['fact'] for r in mdtable.read(p)}
 def load(path=None):
-    L = {r['id']: r for r in mdtable.read(os.path.join(HERE, 'lures.md'), 'Scenarios')}
+    L = {r['id']: r for r in csv.DictReader(open(os.path.join(HERE, 'scenarios.csv'), encoding='utf-8'))}
     T = fact_texts()
     for r in L.values():
         r['focal_text'] = T[r['focal_item']]
