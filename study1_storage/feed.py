@@ -5,9 +5,6 @@
   python3 feed.py T2     explicit "please remember this" delivery, switch OFF
   python3 feed.py T3     explicit delivery, switch ON
 Options: --skip-optional (leave out the 27 optional rows; leave their checkbook cells blank).
-         --pilot (the small trial run before the main study: one fact from each class, each in its own chat, sent to four
-                  SEPARATE pilot accounts set up like T0 to T3. It checks that the steps work: the save happens, the export
-                  can be searched, the token is found. Expectations are fixed before the pilot and are not changed because of it.)
 Send the blocks in the printed order (shuffled on purpose), each exactly once. Never reword a line, never retry a refused line, never push for a different outcome."""
 import os, sys, random
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, '..', 'tools')); import mdtable
@@ -30,23 +27,13 @@ def blocks(acc, skip_optional=False):
         else: txt = '\n'.join(EXPLICIT + r['fact'] for r in ch)
         out.append((name, [r['id'] for r in ch], txt))
     return out
-def pilot(acc):
-    """One fact per class (the first non-optional fact of each class), each in its own chat."""
-    seen, out = set(), []
-    for r in facts():
-        if r['class'] in seen or r['id'] in OPTIONAL: continue
-        seen.add(r['class']); k = len(out)
-        txt = 'Some context before I ask: ' + r['fact'] + '\n\n' + REQ[k % 4] if DELIVERY[acc] == 'casual' else EXPLICIT + r['fact']
-        out.append((f"pilot.{r['class']}", [r['id']], txt))
-    return out
 def positions(acc):
     """fact id -> index of its block in this account's feed order (0 first)."""
     return {i: k for k, (_, ids, _) in enumerate(blocks(acc)) for i in ids}
 if __name__ == '__main__':
     a = [x for x in sys.argv[1:] if not x.startswith('--')]
     if len(a) != 1 or a[0] not in ACC: print(__doc__); sys.exit(1)
-    bl = pilot(a[0]) if '--pilot' in sys.argv else blocks(a[0], '--skip-optional' in sys.argv)
-    if '--pilot' in sys.argv: print(f'# PILOT account set up like {a[0]}. Use a separate throwaway account, not the main {a[0]} account.')
+    bl = blocks(a[0], '--skip-optional' in sys.argv)
     print(f'# Account {a[0]} ({DELIVERY[a[0]]}, switch {SWITCH[a[0]]}): {len(bl)} blocks. Fresh chat per block. Wait the agreed time after each block (set before the study, see DESIGN.md), then read the store and log Y / N / ? per id. Searching the export for a fact token (printed in the block header) finds the fact whether or not it was reworded.\n')
     tok = {r['id']: r['token'] for r in facts()}
     for name, ids, txt in bl: print(f'=== block {name}  ids: {" ".join(ids)}  (search the export for: {", ".join(tok[i] for i in ids)}) ===\n{txt}\n')

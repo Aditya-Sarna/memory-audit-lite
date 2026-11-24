@@ -31,8 +31,6 @@ On 24 November 2026 we checked Anthropic's memory rules word by word against two
 - **The main switch:** memory is turned on with "Generate memory from chats" in Settings > Your Claude ([Help Center passage](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#:~:text=turning%20on%20Generate%20memory%20from%20chats)). It is on by default for Free, Pro, Max and Ultra plans, while sensitive topics are off by default. [Announcement passage](https://claude.com/resources/articles/claudes-memory-works-everywhere-and-you-decide-whats-in-it#:~:text=Memory%20is%20on%20by%20default%20on%20Free)
 - **Exports:** all memory data is included in data exports. [Help Center passage](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#:~:text=All%20memory%20data%20is%20included%20in%20data%20exports)
 
-*Checking the table in practice.* Before the main run, a small trial sends one fact from each group to four trial accounts (Workstream 1, Step 0). This gives an early look at whether Claude follows the stated rules.
-
 Only these stated rules set expectations in this study. Three of our fact groups fall under them:
 
 | Our fact group | Examples | Expected behaviour | Rule |
@@ -66,11 +64,9 @@ Sources (current addresses, checked 24 November 2026): [Use Claude's chat search
 
 *Objective.* We tell Claude 960 made-up facts about our person and check which ones it saves to memory. The facts fall into 13 groups, such as everyday details, health, money, religion and politics, and things that should never be saved (ID and card numbers, criminal history). For the groups covered by one of Anthropic's stated rules, we write down in advance what should happen, then compare that with what actually happens. The other groups are measured and described, with no expected outcome.
 
-*Step 0. Run a small trial first.* We send one fact from each of the 13 groups to four separate trial accounts, set up like the four main accounts. That is 52 chats, one fact per chat. The trial checks that every step works: the fact gets saved, the memory export can be downloaded and searched, and the fact's invented word is found. It also gives a first look at whether Claude follows the stated rules. The expected outcomes are written down before the trial and are not changed afterwards, whatever the trial shows. If the expectations could be changed after seeing results, the main study could end up tuned to agree with itself.
-
 *Step 1. Tell the facts to four accounts.* Every fact goes to four separate accounts, which differ in two ways. The first is how the fact is mentioned: casually, as background to an unrelated question, or with an explicit request ("Please remember this:"). The second is whether Claude's setting for remembering sensitive topics is on or off. Combining the two gives four accounts. Facts go in batches of five per new chat, in a fixed random order, so that no group always comes last. That makes 772 chats, 193 per account. Each fact is sent exactly once, and we never reword it or try again.
 
-*Step 2. Check what was saved.* After a short wait, we download each account's memory and search it for each fact's invented word. How long to wait is fixed before the main run, using the Step 0 trial to see whether a fact's invented word shows up straight away or only after some minutes, and then kept the same for every batch. Two reviewers split the facts between them and mark each one as saved, not saved, or unclear. Every unclear mark gets a short note explaining why, for example a note that was merged with another or reworded beyond recognition.
+*Step 2. Check what was saved.* After a short wait, we download each account's memory and search it for each fact's invented word. How long to wait is fixed before the main run and kept the same for every batch. Two reviewers split the facts between them and mark each one as saved, not saved, or unclear. Every unclear mark gets a short note explaining why, for example a note that was merged with another or reworded beyond recognition.
 
 *Step 3. Score the results.* We report:
 
@@ -185,7 +181,6 @@ Nothing has been run on a live Claude account yet. Everything below has been che
 | Check the kit | `python3 tests/test_all.py` (must end with `0 failed`) |
 | Harm survey (before the lock) | run the survey in `study2_email/harm_survey/form.csv`, save the answers in `responses.csv`, then `python3 study2_email/harm_survey/score_survey.py` (must say READY) |
 | Lock the plan before any data | `python3 tools/freeze.py write`; later, `python3 tools/freeze.py verify` shows any change |
-| Study 1 trial | `python3 study1_storage/feed.py T0 --pilot` (and T1, T2, T3) |
 | Study 1 | `python3 study1_storage/feed.py T0` (and T1, T2, T3), then `python3 study1_storage/score.py` |
 | Study 2 | follow `study2_email/checkbook.csv` in order, then `python3 study2_email/score.py` |
 | Lock the rulebook and prompts after the practice rounds | `python3 tools/freeze.py write-after-pilot` |
