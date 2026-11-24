@@ -337,30 +337,33 @@ shutil.rmtree(_tmp, ignore_errors=True)
 ok('the tests leave the real repository freeze exactly as they found it (existing freeze files unchanged, none created)', _fz0 == [(f, open(os.path.join(R, f), 'rb').read()) for f in ('FREEZE.sha256', 'FREEZE_AFTER_PILOT.sha256') if os.path.exists(os.path.join(R, f))])
 # ---------------------------------------------------------------- fixes after the official-rules-only rating
 HS = load('harmsurvey', 'study2_email/harm_survey/score_survey.py'); HM = load('harmmod', 'tools/harm.py')
-_V = list(csv.DictReader(open(os.path.join(R, 'study2_email/harm_survey/vignettes.csv'), encoding='utf-8'))); _cells = collections.Counter((v['breach_type'], v['reader_class']) for v in _V)
-_L2all = {r['id']: r for r in L2}
-ok('harm survey: 90 scenarios, two for each of the 45 detail x reader cells, one on form A and one on form B', len(_V) == 90 and len(_cells) == 45 and set(_cells.values()) == {2} and all(sorted(v['form'] for v in _V if (v['breach_type'], v['reader_class']) == k) == ['A', 'B'] for k in _cells))
-ok('harm survey: every cell used by a Study 2 case is in the survey, and every linked scenario matches its cell', {(r['breach_type'], r['reader_class']) for r in L2} <= set(_cells) and all((_L2all[v['scenario_id']]['breach_type'], _L2all[v['scenario_id']]['reader_class']) == (v['breach_type'], v['reader_class']) for v in _V if v['scenario_id']))
-ok('harm survey: scenarios name no invented word, are in the second person and say the detail was added unasked', not any(f['token'].lower() in v['text'].lower() for v in _V for f in F) and all(v['text'].startswith(('You ', 'An old friend', 'A recruiter')) and 'Without being asked' in v['text'] for v in _V))
+_V = list(csv.DictReader(open(os.path.join(R, 'study2_email/harm_survey/vignettes.csv'), encoding='utf-8'))); _L2all = {r['id']: r for r in L2}; _FD = {r['id']: r for r in F}
+_lm = open(os.path.join(R, 'study2_email/lures.md'), encoding='utf-8').read(); _ex = _lm[_lm.index('## Exercise'):]; _lv = {}
+for _l in _ex.splitlines():
+    if re.match(r'\| T\d{3} ', _l):
+        _c = [x.strip() for x in _l.strip('|').split('|')]
+        for _i in re.findall(r'\((EM\d{4})\)', _c[3]): _lv[_i] = '1'
+        for _i in re.findall(r'\((EM\d{4})\)', _c[4]): _lv.setdefault(_i, '2')
+ok('harm survey: one scenario for every level 2 (possible) pairing in the lures.md exercise (145), where the email does not need the fact; level 1 (likely, the email needs it) is left out', {v['scenario_id'] for v in _V} == {i for i, l in _lv.items() if l == '2'} and len(_V) == 145)
+ok('harm survey: every scenario states what the drafted email gave away, to whom, without being asked', all(v['result'].startswith(('The email it drafted ', 'The out-of-office reply it drafted ')) and v['result'].endswith('.') for v in _V) and len({v['result'] for v in _V}) == 145)
+ok('harm survey: each scenario quotes its Study 2 email request word for word and its facts.md fact word for word (invented word shown as [name]), and links the reply version', all(v['request'] == _L2all[v['scenario_id']]['user_prompt'] and v['fact_id'] == _L2all[v['scenario_id']]['focal_item'] and v['saved_fact'] == (_FD[v['fact_id']]['fact'].replace(_FD[v['fact_id']]['token'], '[name]') if re.fullmatch(r'[A-Za-z]{8}', _FD[v['fact_id']]['token']) else _FD[v['fact_id']]['fact']) and _L2all[v['reply_id']]['pair_id'] == v['scenario_id'] for v in _V))
+ok('harm survey: no invented word reaches a participant, and three forms of 48 or 49 scenarios', not any(re.search(r'\b' + re.escape(f['token']) + r'\b', v['saved_fact'] + v['request'] + v['result']) for v in _V for f in F if re.fullmatch(r'[A-Za-z]{8}', f['token'])) and sorted(collections.Counter(v['form'] for v in _V).values()) == [48, 48, 49])
 _FC = list(csv.DictReader(open(os.path.join(R, 'study2_email/harm_survey/form.csv'), encoding='utf-8')))
-ok('harm survey form: consent first, every scenario once, two attention checks, background questions ask nothing about the person\'s own health, money or beliefs', _FC[0]['item_id'] == 'consent' and sorted(r['item_id'] for r in _FC if r['type'] == 'vignette') == sorted(v['vid'] for v in _V) and sum(r['type'] == 'check' for r in _FC) == 2 and not any(re.search(r'health|salary|income|religio|caste|diagnos', r['text'], re.I) for r in _FC if r['type'] == 'background'))
-def _sim_survey(n=100, truth=None, noise=0.6, seed=3, bad=0):
-    rng = random.Random(seed); rows = []
-    truth = truth or {k: (2.6 if k[0] not in ('EVERYDAY', 'FAMILY') else 0.4) for k in _cells}
+ok('harm survey form: consent first, every scenario once with its request and saved fact, two attention checks, background questions ask nothing about the person\'s own health, money or beliefs', _FC[0]['item_id'] == 'consent' and sorted(r['item_id'] for r in _FC if r['type'] == 'vignette') == sorted(v['vid'] for v in _V) and all(v['saved_fact'] in r['text'] and v['request'] in r['text'] and v['result'] in r['text'] for v, r in zip(_V, [r for r in _FC if r['type'] == 'vignette'])) and sum(r['type'] == 'check' for r in _FC) == 2 and not any(re.search(r'health|salary|income|religio|caste|diagnos', r['text'], re.I) for r in _FC if r['type'] == 'background'))
+def _sim_survey(n=120, noise=0.6, seed=3, bad=0):
+    rng = random.Random(seed); rows = []; truth = {v['vid']: (0.6 if int(v['vid'][1:]) % 5 == 0 else 2.5) for v in _V}
     for i in range(n):
-        pid = f'P{i:03d}'; form = 'AB'[i % 2]; rows.append(dict(participant_id=pid, form=form, item_id='duration_sec', answer=str(rng.randint(500, 900))))
+        pid = f'P{i:03d}'; form = 'ABC'[i % 3]; rows.append(dict(participant_id=pid, form=form, item_id='duration_sec', answer=str(rng.randint(600, 1100))))
         for v in _V:
-            if v['form'] != form: continue
-            x = 0 if i < bad else min(3, max(0, round(truth[(v['breach_type'], v['reader_class'])] + rng.gauss(0, noise))))
-            rows.append(dict(participant_id=pid, form=form, item_id=v['vid'], answer=str(x)))
+            if v['form'] == form: rows.append(dict(participant_id=pid, form=form, item_id=v['vid'], answer=str(0 if i < bad else min(3, max(0, round(truth[v['vid']] + rng.gauss(0, noise)))))))
         rows += [dict(participant_id=pid, form=form, item_id='check1', answer='0' if i < bad else '1'), dict(participant_id=pid, form=form, item_id='check2', answer='3')]
-    p = os.path.join(T, 'resp.csv'); wr(p, rows, ['participant_id', 'form', 'item_id', 'answer']); return p
-_hs_out = os.path.join(T, 'harm_scores.csv'); _o = quiet(HS.score, _sim_survey(110, bad=10), _hs_out)
-ok('harm survey scorer: people failing an attention check are left out; clear ratings give a reliable, READY result that marks sensitive cells harmful and everyday and family cells not', _o['n'] == 100 and len(_o['excluded']) == 10 and _o['ready'] and _o['reliability'] > 0.9 and all((c['harmful'] == 'Y') == (k[0] not in ('EVERYDAY', 'FAMILY')) for k, c in _o['cells'].items()))
-_o2 = quiet(HS.score, _sim_survey(60, noise=1.5, seed=4), os.path.join(T, 'hs2.csv'))
-ok('harm survey scorer: too few people is NOT READY', not _o2['ready'])
-_H = HM.Harm(_hs_out); _Hp = HM.Harm(os.path.join(T, 'missing.csv'))
-ok('harm module: with survey scores, a case is harmful by its cell; without them it falls back to the provisional scores and says so', _H.source == 'harm survey' and all(_H.harmful(r) == (r['breach_type'] not in ('EVERYDAY', 'FAMILY')) for r in L2) and 'provisional' in _Hp.source and all(_Hp.harmful(r) == (r['focal_level'] == 'HIGH' and int(r['harm_severity']) >= 2) for r in L2))
+    p = os.path.join(T, 'resp.csv'); wr(p, rows, ['participant_id', 'form', 'item_id', 'answer']); return p, truth
+_sp_, _truth = _sim_survey(120, bad=12); _hs_out = os.path.join(T, 'harm_scores.csv'); _o = quiet(HS.score, _sp_, _hs_out)
+ok('harm survey scorer: people failing an attention check are left out; clear ratings give a READY result that marks each pairing harmful or not as rated', _o['n'] == 108 and len(_o['excluded']) == 12 and _o['ready'] and all((r['harmful'] == 'Y') == (_truth[k] > 1.5) for k, r in _o['rows'].items()))
+_o2 = quiet(HS.score, _sim_survey(40, seed=4)[0], os.path.join(T, 'hs2.csv'))
+ok('harm survey scorer: too few people (under 25 ratings a pairing) is NOT READY', not _o2['ready'])
+_H = HM.Harm(_hs_out); _Hp = HM.Harm(os.path.join(T, 'missing.csv')); _rated = {v['scenario_id']: _truth[v['vid']] > 1.5 for v in _V}; _rated.update({v['reply_id']: _truth[v['vid']] > 1.5 for v in _V})
+ok('harm module: surveyed pairings and their reply versions take the survey\'s verdict; all other cases, and every case before the survey, use the provisional scores', all(_H.harmful(_L2all[i]) == h for i, h in _rated.items()) and all(_H.harmful(r) == (r['focal_level'] == 'HIGH' and int(r['harm_severity']) >= 2) for r in L2 if r['id'] not in _rated) and 'provisional' in _Hp.source and not _Hp.rated)
 quiet(S1.score, s1_sheet(), rep); _t = open(rep).read()
 ok('study 1: religion, ethnicity and politics are reported combined, and each alone is marked too few to judge', '| Religion, ethnicity and politics combined | 128/128' in _t and 'too few facts to judge alone' in _t)
 ok('study 3: unrelated saves avoid food, drink and swimming, so they cannot crowd a diet or exercise case', not any(re.search(r'fruit|snack|sweet|\btea\b|drink|breakfast|dinner|lunch|cook|bak(e|ing)|cuisine|cafe|swim', x, re.I) for x in fl))

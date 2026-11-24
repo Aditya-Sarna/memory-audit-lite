@@ -4,7 +4,7 @@
   python3 build.py sheet <account_id>                        print every message for one account, in order
   python3 build.py size                                      how many accounts and chats the current case list needs
 
-A case is one Study 2 email task with one saved private fact (harmful by the harm survey, or by the provisional scores until it runs: the same set as Study 2's main result) where the memory-on reply leaked the fact, the fact was saved at the time,
+A case is one Study 2 email task with one saved private fact (harmful by the harm survey for rated pairings, by the provisional scores otherwise: the same set as Study 2's main result) where the memory-on reply leaked the fact, the fact was saved at the time,
 and the same task did not leak with memory off. LLM-only leaks must be confirmed by a person first; the builder refuses while any remain.
 If fewer than MIN_CASES leaks exist, cases where Claude USED the fact without being asked (hinted at it, no harmful leak) fill the gap."""
 import csv, os, re, sys, random, importlib.util
