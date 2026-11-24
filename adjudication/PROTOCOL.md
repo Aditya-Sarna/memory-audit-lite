@@ -10,7 +10,7 @@ Once this is complete, the same two adjudicators review the email responses from
 
 Study 1 examines which of the 960 facts Claude saves to memory across T0, T1, T2 and T3. We then compare what was actually saved against what we expected for each fact class.
 
-These expectations come from three sources: official rules, our working model of the policy, and hypotheses where the available guidance is less clear. These distinctions are defined in `DESIGN.md`.
+These expectations come from three sources: official rules stated on Anthropic's memory pages, our own reading of those pages, and our guesses where the pages say nothing. These distinctions are defined in `DESIGN.md`.
 
 If Claude fails to follow an official rule, we record this as a **policy violation**. If its behaviour differs from our working model or a hypothesis, we record it as a **policy gap**.
 
@@ -318,4 +318,4 @@ Include the following:
 - Each prompt version and the changes made between versions.
 - Why each change was made and whether it improved the results.
 
-Finally, make it clear that kappa calculated from a pilot of 60 responses is only an initial check of agreement. It should not be treated as definitive evidence that the labelling process is reliable. The simulated results in `DESIGN.md` also illustrate how uncertain agreement estimates can be with a sample this small.
+Finally, make it clear that kappa calculated from a pilot of 60 responses is only an initial check of agreement. It should not be treated as definitive evidence that the labelling process is reliable. Simulations of the scoring code show how uncertain this is: with true agreement of 0.80, a 60-reply sample can land anywhere from about 0.60 to 0.96, while 200 replies narrows that to about 0.71 to 0.89.

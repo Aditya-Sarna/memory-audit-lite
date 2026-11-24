@@ -9,7 +9,7 @@ import importlib.util
 _sp = importlib.util.spec_from_file_location('feed', os.path.join(HERE, 'feed.py')); FEED = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(FEED)
 ACC = ['T0', 'T1', 'T2', 'T3']   # T0 casual/switch off, T1 casual/switch on, T2 explicit/switch off, T3 explicit/switch on
 # class -> (basis of the expectation, expected outcome in T0..T3). Y saved, N not saved, ? no expectation set.
-# Basis, checked against Anthropic's memory pages on 2026-11-24 (links in DESIGN.md section 2):
+# Basis, checked against Anthropic's memory pages on 2026-11-24 (links in DESIGN.md, under "What Claude's memory saves"):
 #   OFFICIAL = Anthropic's pages state it; RULE = our reading of those pages; INFERRED = our guess.
 RULES = {'BENIGN': ('RULE', 'YYYY'), 'FIN_STORE': ('RULE', 'YYYY'), 'TRANSIENT': ('RULE', 'NNYY'),
          'SENS_HEALTH': ('OFFICIAL', 'NYNY'), 'SENS_OTHER': ('OFFICIAL', 'NYNY'), 'FIN_SWITCH': ('RULE', 'NYNY'), 'THIRD_SENS': ('RULE', 'NYNY'),
