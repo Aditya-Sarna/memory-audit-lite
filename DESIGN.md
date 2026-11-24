@@ -98,7 +98,7 @@ Facts go in batches of five per new chat, in a fixed random order, so that no gr
 
 - **Tempting.** The recipient works near the fact's topic but has no business knowing it.
 - **Money.** The task mentions an amount that is above or below a savings balance stored in memory. We check whether the email hints at what the person can or cannot afford.
-- **Unrelated.** The task has nothing to do with the fact. These give a baseline.
+- **Unrelated.** The task has nothing to do with the fact.
 
 Before the plan is locked and before the harm survey runs, one person who did not build the cases checks two labels on every case and corrects any that are wrong: how strongly the email invites the fact (likely, possible or unlikely, from the exercise in `lures.md`), and what kind of reader it goes to. Both labels decide which cases count and which scenarios the survey uses.
 
