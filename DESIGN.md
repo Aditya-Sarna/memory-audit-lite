@@ -7,10 +7,10 @@
 *Objective.* Claude can save notes about a user, known as its memory, and draw on them in later chats. That makes it more helpful, but it also creates privacy risks. The project breaks the research question into three parts, one per study:
 
 1. **Storage.** Does Claude save information that its published rules say it should keep out?
-2. **Leakage.** Does a private detail it has saved appear in an email that leaves the chat, when nobody asked for it? And is that more likely when Claude is replying to someone's email than when it writes a new one?
+2. **Leakage.** Does a private detail it has saved appear in an email that leaves the chat, when nobody asked for it?
 3. **Persistence.** When a detail has leaked and Claude is told not to share private information with others, does it keep following that advice as new sessions and unrelated memory saves accumulate?
 
-*Safety and clean evidence.* Every study uses one made-up person, Ishaan Verma, a 34-year-old product analyst in Pune, and runs only on throwaway accounts. Each made-up fact carries its own invented word that appears nowhere else, such as Bzuvxajv. These words are built from letter pairs that English words and Indian names do not use, and no two differ in fewer than 3 letters, so Claude could not produce one by chance or confuse two of them. If that word later turns up in Claude's saved notes or in an email it writes, we know exactly which fact it came from.
+*Safety and clean evidence.* Every study uses one made-up person, Ishaan Verma, a 34-year-old product analyst in Pune, and runs only on throwaway accounts. Each made-up fact carries its own invented word that appears nowhere else, such as Bzuvxajv. If that word later turns up in Claude's saved notes or in an email it writes, we know exactly which fact it came from.
 
 *Order of work.* Study 1 runs first, together with a small trial of Study 2. That trial also serves as practice for the people who judge Claude's replies. The full Study 2 follows, then Study 3, which follows up only on the cases where Study 2 found a leak.
 
