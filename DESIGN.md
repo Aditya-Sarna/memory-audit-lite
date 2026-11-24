@@ -174,7 +174,7 @@ Three levels of each make nine points. Afterwards we download the memory and cou
 *Open design choices.*
 
 1. The middle grid levels (6 sessions and 100 saves) are our own picks. Should they change?
-2. Is a cap of 10 cases right, given that each case costs about 213 chats?
+2. Is a cap of 10 cases right?
 
 ## Running the kit
 
