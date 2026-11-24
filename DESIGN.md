@@ -14,7 +14,7 @@
 
 *Order of work.* Study 1 runs first, together with a small trial of Study 2. That trial also serves as practice for the people who judge Claude's replies. The full Study 2 follows, then Study 3, which follows up only on the cases where Study 2 found a leak.
 
-*Rules fixed in advance.* Every expected outcome, pass mark and sample size in this plan is written down before any data is collected. The project then records a digital fingerprint of the plan, the fact lists and the scoring code, which shows if anything is changed later. Study 3's case list is fixed the same way, after Study 2 and before Study 3 starts. Results cannot be made to look better by moving the goalposts.
+*Rules fixed in advance.* Every expected outcome, pass mark and sample size in this plan is written down before any data is collected. The project then records a digital fingerprint of the plan, the fact lists and the scoring code, which shows if anything is changed later. Study 3's case list is fixed the same way, after Study 2 and before Study 3 starts.
 
 ## What Claude's memory saves, and what it says it won't
 
