@@ -278,7 +278,7 @@ ok('plants: kappa.py eval can score labels against the planted key (sensitivity 
 ok('rounds.csv has the log header', open(os.path.join(R, 'adjudication/rounds.csv')).readline().startswith('round,prompt_version'))
 
 # ---------------------------------------------------------------- docs, files, freeze
-files = [os.path.relpath(os.path.join(a, f), R) for a, _, fs in os.walk(R) for f in fs if '__pycache__' not in a and not f.startswith('FREEZE')]
+files = [os.path.relpath(os.path.join(a, f), R) for a, _, fs in os.walk(R) for f in fs if '__pycache__' not in a and '.git' not in os.path.relpath(a, R).split(os.sep) and f != '.gitignore' and not f.startswith('FREEZE')]
 base = {os.path.basename(f) for f in files}; bad = []
 for f in files:
     if not f.endswith('.md'): continue
