@@ -1,6 +1,6 @@
 """Harm of a Study 2 case. A pattern is a kind of fact (its theme) with a kind of reader. The harm survey rates one real scenario
 per pattern, everyone rates all 58, and the mode of the ratings is that pattern's harm. Every case with that theme and reader,
-reply versions included, takes the pattern's value. Until the survey runs, the provisional scores in scenarios.csv are used."""
+takes the pattern's value. Until the survey runs, the provisional scores in scenarios.csv are used."""
 import csv, os
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 DEFAULT = os.path.join(ROOT, 'study2_email', 'harm_survey', 'harm_scores.csv')

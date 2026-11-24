@@ -116,11 +116,3 @@ def perm_trend(level, value, strata=None, reps=4000, seed=1):
         for g in groups: w[g] = rng.permutation(v[g])
         if abs(spearman(lv, w)) >= obs - 1e-12: cnt += 1
     return (cnt + 1) / (reps + 1), spearman(lv, v)
-def mcnemar_power(n, share, alpha=0.05):
-    """Power of the exact McNemar test with n uneven pairs, when a share `share` of them lean one way."""
-    return sum(math.comb(n, k) * share ** k * (1 - share) ** (n - k) for k in range(n + 1) if k > n - k and mcnemar_exact(k, n - k) < alpha)
-def uneven_pairs_needed(share, power=0.8, alpha=0.05, cap=2000):
-    """Smallest n with at least `power` from that n onwards (exact power saw-tooths, so the next 10 n must also clear it)."""
-    for n in range(1, cap):
-        if all(mcnemar_power(m, share, alpha) >= power for m in range(n, n + 10)): return n
-    return None

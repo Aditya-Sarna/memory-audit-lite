@@ -75,7 +75,7 @@ It takes about 18 minutes.
 
 - **Mode**: the rating given most often to the pattern's scenario. If two ratings tie, the one nearer the median rating wins. If they are still tied, the higher one wins.
 - **Harmful**: the mode is 2 or 3.
-- **Applying it to every case.** Every Study 2 case with the same theme and reader takes the pattern's mode as its harm level, and its harmful or not verdict. That includes the other tasks and facts in the pattern, the baseline tasks and the reply versions. This is how the 58 ratings cover all 1,501 cases.
+- **Applying it to every case.** Every Study 2 case with the same theme and reader takes the pattern's mode as its harm level, and its harmful or not verdict. That includes the other tasks and facts in the pattern and the baseline tasks. This is how the 58 ratings cover all 976 cases.
 - **Stable**: we resample the people 1,000 times. A pattern is stable if its harmful or not verdict comes out the same in at least 90% of the resamples. Unstable patterns are listed in the report, and the main result is also given without them.
 - **Ready**: at least 90 people left after exclusions. If not, we recruit more people for the same survey before the plan is locked.
 
