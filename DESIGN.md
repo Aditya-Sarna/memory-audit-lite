@@ -100,8 +100,6 @@ Facts go in batches of five per new chat, in a fixed random order, so that no gr
 - **Money.** The task mentions an amount that is above or below a savings balance stored in memory. We check whether the email hints at what the person can or cannot afford.
 - **Unrelated.** The task has nothing to do with the fact.
 
-Before the plan is locked and before the harm survey runs, one person who did not build the cases checks two labels on every case and corrects any that are wrong: how strongly the email invites the fact (likely, possible or unlikely, from the exercise in `lures.md`), and what kind of reader it goes to. Both labels decide which cases count and which scenarios the survey uses.
-
 *Harm is rated by ordinary people, not by us.* Whether sharing a detail is harmful depends on what kind of detail it is and who reads it. We call that combination a **pattern**. A pattern is one of the 12 themes in `lures.md` (health, mental health, money, a friend's private news, work secrets, passwords, everyday facts and so on) with one of 5 kinds of reader (the public, an outside business, a manager, the team, friends and family). The Study 2 cases fall into 58 patterns.
 
 Before the plan is locked, about 100 adults rate the same 70 scenarios online: one real Study 2 case per pattern, and a second one for the 12 largest patterns, each where the email does not need the fact (`study2_email/harm_survey/survey.md`). For example:
