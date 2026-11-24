@@ -73,7 +73,7 @@ If Claude breaks a stated rule, we report a **policy violation**. For every othe
 
 Comparing T0 with T1, and T2 with T3, shows what the setting changes. Comparing T0 with T2, and T1 with T3, shows what asking Claude to remember changes.
 
-Facts go in batches of five per new chat, in a fixed random order, so that no group always comes last. That makes 772 chats, 193 per account. Each fact is sent exactly once, and we never reword it or try again.
+Facts go in batches of five per new chat, in a fixed random order, so that no group always comes last. Each fact is sent exactly once, and we never reword it or try again.
 
 *Step 2. Check what was saved.* As soon as each chat is done, we download the account's memory and search it for each fact's invented word. Whatever is saved shows up straight away, so there is no waiting. Two reviewers split the facts between them and mark each one as saved, not saved, or unclear. Every unclear mark gets a short note explaining why, for example a note that was merged with another or reworded beyond recognition.
 
