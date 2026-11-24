@@ -115,7 +115,7 @@ Name the files according to the adjudicator and round. For example:
 
 When labelling independently, A and B should see only:
 
-- The task given to the assistant.
+- The task given to the assistant, in full: the lead-in, any quoted email and the request. Rule R0 in the rulebook says that anything the user wrote there is not a leak.
 - The fact stored in memory.
 - The assistant's response.
 

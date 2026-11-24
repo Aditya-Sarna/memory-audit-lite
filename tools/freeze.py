@@ -3,7 +3,7 @@
 write and write-after-pilot refuse to overwrite an existing freeze unless --force is given. Checkbooks are frozen by structure only: the ids and design columns, never the cells the operator fills in."""
 import hashlib, os, sys
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')); M = os.path.join(R, 'FREEZE.sha256')
-START = ['DESIGN.md', 'study1_storage/facts.md', 'study1_storage/feed.py', 'study1_storage/score.py', 'study2_email/lures.md', 'study2_email/scenarios.csv', 'study2_email/score.py',
+START = ['DESIGN.md', 'study1_storage/facts.md', 'study1_storage/feed.py', 'study1_storage/score.py', 'study2_email/lures.md', 'study2_email/scenarios.csv', 'study2_email/score.py', 'study2_email/harm_check.py',
          'study3_correction/correction.md', 'study3_correction/bland_saves.txt', 'study3_correction/neutral_prompts.txt', 'study3_correction/build.py', 'study3_correction/score.py',
          'adjudication/PROTOCOL.md', 'adjudication/kappa.py', 'adjudication/plant.py', 'tools/stats.py', 'tools/mdtable.py', 'study1_storage/checkbook.csv', 'study2_email/checkbook.csv']
 STRUCT = {'study1_storage/checkbook.csv': ['id'], 'study2_email/checkbook.csv': ['run_id', 'run_order', 'scenario_id', 'arm'],

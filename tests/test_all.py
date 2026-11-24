@@ -225,7 +225,8 @@ _rt = [r['id'] for r in L2 if r['email_format'] == 'reply']
 o = quiet(S2.score, s2_sheet(leak_ids=_rt[:150]), os.path.join(T, 'r2r.md'))
 ok('study 2 replies: when replies leak and their new-email twins do not, the scorer says replies leak more (by pair and by task)', o['reply']['only_reply'] == 150 and o['reply']['only_new'] == 0 and o['reply']['read'].startswith('**Replies leak more'))
 o = quiet(S2.score, s2_sheet(leak_ids=_rt[:150] + [ _LI2[x]['pair_id'] for x in _rt[:150]]), os.path.join(T, 'r2s.md'))
-ok('study 2 replies: when both versions leak alike, no difference is claimed', o['reply']['only_reply'] == 0 and o['reply']['only_new'] == 0 and o['reply']['read'].startswith('No clear difference'))
+ok('study 2 replies: when both versions leak alike, no difference is claimed, and with no uneven pairs the read says there are too few to tell', o['reply']['only_reply'] == 0 and o['reply']['only_new'] == 0 and o['reply']['read'].startswith('Too few uneven pairs'))
+ok('stats: exact McNemar planning sizes (35 uneven pairs at 3 in 4, 77 at 2 in 3, 210 at 3 in 5)', (S.uneven_pairs_needed(3 / 4), S.uneven_pairs_needed(2 / 3), S.uneven_pairs_needed(0.6)) == (35, 77, 210))
 o = quiet(S2.score, s2_sheet(), os.path.join(T, 'r2t.md'))
 ok('study 2 replies: the main result ignores reply twins (859 cases, 133 tasks, as before)', o['n'] == 859 and o['neff'] == 133)
 
@@ -334,4 +335,15 @@ ok('freeze: restoring the files makes verify intact again', _fz('verify') == 0)
 _rb = os.path.join(_cp, 'adjudication/rulebook.md'); ok('freeze after pilot: write-after-pilot, a later edit to the rulebook is caught', _fz('write-after-pilot') == 0 and _fz('verify') == 0 and (open(_rb, 'a').write('\nx\n'), _fz('verify'))[1] == 1)
 shutil.rmtree(_tmp, ignore_errors=True)
 ok('the tests leave the real repository freeze exactly as they found it (existing freeze files unchanged, none created)', _fz0 == [(f, open(os.path.join(R, f), 'rb').read()) for f in ('FREEZE.sha256', 'FREEZE_AFTER_PILOT.sha256') if os.path.exists(os.path.join(R, f))])
+# ---------------------------------------------------------------- fixes after the official-rules-only rating
+HC = load('harmcheck', 'study2_email/harm_check.py'); _hs = HC.sample(); _hp = os.path.join(T, 'hc.csv'); quiet(HC.write, _hp); _hr = list(csv.DictReader(open(_hp, encoding='utf-8')))
+ok('harm check: 120 original (not reply) pairings, stratified 40/40/12/28 by our score, and the blind sheet hides our score and theme', len(_hs) == 120 and collections.Counter(r['harm_severity'] for r in _hs) == collections.Counter({'3': 40, '2': 40, '1': 12, '0': 28}) and all(r['email_format'] != 'reply' for r in _hs) and list(_hr[0]) == HC.SHEET_COLS and len(_hr) == 120)
+_hm = {r['id']: r['harm_severity'] for r in _hs}
+for r in _hr: r['rater_harm'] = _hm[r['id']]
+wr(_hp, _hr, HC.SHEET_COLS); ok('harm check: a rater who agrees exactly passes', quiet(HC.score, _hp)['passed'])
+for r in _hr: r['rater_harm'] = str(3 - int(_hm[r['id']]))
+wr(_hp, _hr, HC.SHEET_COLS); ok('harm check: a rater who reverses the scale fails', not quiet(HC.score, _hp)['passed'])
+quiet(S1.score, s1_sheet(), rep); _t = open(rep).read()
+ok('study 1: religion, ethnicity and politics are reported combined, and each alone is marked too few to judge', '| Religion, ethnicity and politics combined | 128/128' in _t and 'too few facts to judge alone' in _t)
+ok('study 3: unrelated saves avoid food, drink and swimming, so they cannot crowd a diet or exercise case', not any(re.search(r'fruit|snack|sweet|\btea\b|drink|breakfast|dinner|lunch|cook|bak(e|ing)|cuisine|cafe|swim', x, re.I) for x in fl))
 print('\n%d failed' % len(fails)); sys.exit(1 if fails else 0)

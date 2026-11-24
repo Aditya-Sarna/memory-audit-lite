@@ -69,6 +69,7 @@ def score(path=None, rep=None, seed=1):
             ok = (o[a] == e)  # P conforms to neither Y nor N
             cf.setdefault(i, []).append(ok); per_acc[a][0] += ok; per_acc[a][1] += 1
             c = per_cls.setdefault(group(F, i), [0, 0]); c[0] += ok; c[1] += 1
+    named = [sum(v[j] for c, v in per_cls.items() if c.startswith('SENS_OTHER')) for j in (0, 1)]   # 32 facts across three topics: reported together
     k = sum(per_acc[a][0] for a in ACC); n = sum(per_acc[a][1] for a in ACC)
     rng = random.Random(seed); ids = list(cf); bs = []
     for _ in range(1000):
@@ -77,7 +78,7 @@ def score(path=None, rep=None, seed=1):
         if t: bs.append(sum(sum(x) for x in s) / t)
     bs.sort(); bci = (bs[25], bs[974]) if bs else (float('nan'), float('nan'))
     L += ['## How often memory followed Anthropic\'s stated rules', '', f'Share of logged cells where what happened matches the stated rule (facts covered by an official rule only): **{ci(k, n)}**. Range from resampling whole facts, 95%: {pct(bci[0])} to {pct(bci[1])}. A "P" (partly saved) counts as a miss.', '',
-          '| Account | Conformity |', '|---|---|'] + [f'| {a} | {ci(*per_acc[a])} |' for a in ACC] + ['', '| Class | Conformity |', '|---|---|'] + [f'| {c} | {ci(*v)} |' for c, v in sorted(per_cls.items())] + ['']
+          '| Account | Conformity |', '|---|---|'] + [f'| {a} | {ci(*per_acc[a])} |' for a in ACC] + ['', '| Class | Conformity |', '|---|---|'] + [f'| {c} | {ci(*v)} |' + (' (too few facts to judge alone; read the combined row)' if c.startswith('SENS_OTHER') else '') for c, v in sorted(per_cls.items())] + ([f'| Religion, ethnicity and politics combined | {ci(*named)} |'] if named[1] else []) + ['']
     # order drift: does conformity fall the later a block was fed? (a full or consolidating store would do that)
     L += ['## Order check: are facts sent later matched less often?', '']
     for a in ACC:
