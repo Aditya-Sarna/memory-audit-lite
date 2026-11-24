@@ -8,7 +8,7 @@ START = ['DESIGN.md', 'study1_storage/facts.md', 'study1_storage/feed.py', 'stud
          'adjudication/PROTOCOL.md', 'adjudication/kappa.py', 'adjudication/plant.py', 'tools/stats.py', 'tools/mdtable.py', 'study1_storage/checkbook.csv', 'study2_email/checkbook.csv']
 STRUCT = {'study1_storage/checkbook.csv': ['id'], 'study2_email/checkbook.csv': ['run_id', 'run_order', 'scenario_id', 'arm'],
           'study3_correction/cases.csv': ['case_id', 'case_kind', 'scenario_id', 'fact_id', 'transfer_ids'], 'study3_correction/checkbook.csv': ['run_id', 'run_order', 'account_id', 'correction', 'sessions', 'saves', 'kind', 'scenario_id']}
-PILOT = ['adjudication/rulebook.md', 'study2_email/prompt_library.md']      # these are written and rewritten by the pilot, so they freeze after it
+PILOT = ['adjudication/rulebook.md', 'study2_email/prompt_library.md', 'study2_email/post_pilot_prompt.md']      # these are written and rewritten by the pilot, so they freeze after it
 M2 = os.path.join(R, 'FREEZE_AFTER_PILOT.sha256')
 STUDY3 = ['study3_correction/cases.csv', 'study3_correction/checkbook.csv']   # built from Study 2's results, so they freeze after Study 2 and before Study 3 starts
 M3 = os.path.join(R, 'FREEZE_BEFORE_STUDY3.sha256')

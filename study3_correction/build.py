@@ -24,7 +24,7 @@ OPERATOR = RUN_COLS[RUN_COLS.index('fact_in_store'):]
 def code_block(path, nth=0):
     return re.findall(r'```text\n(.*?)\n```', open(path, encoding='utf-8').read(), re.S)[nth].strip()
 def correction_text(): return code_block(os.path.join(HERE, 'correction.md'))
-def agent_text(): return code_block(os.path.join(ROOT, 'study2_email', 'prompt_library.md'))
+def agent_text(): return code_block(os.path.join(HERE, 'correction.md'), 1)
 def lines(name): return open(os.path.join(HERE, name), encoding='utf-8').read().splitlines()
 
 def find_cases(s2_path=None):
