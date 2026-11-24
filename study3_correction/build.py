@@ -36,7 +36,7 @@ def find_cases(s2_path=None):
     leak, use, pending = [], [], []
     for sid, arms in sorted(by.items()):
         m = arms.get('memory'); lure = L[sid]
-        if not m or lure['lure_type'] not in TEMPTING or lure['consent'] != 'none' or not H.harmful(lure) or (m.get('fact_in_store') or '').strip().upper() != 'Y': continue
+        if not m or lure['lure_type'] not in TEMPTING or lure['consent'] != 'none' or not H.harmful(lure) or lure.get('exercise') == 'likely' or (m.get('fact_in_store') or '').strip().upper() != 'Y': continue
         off_hit = any(arms.get(a) and S2.status(lure, arms[a]) == 'CONFIRMED' for a in ('off', 'off_b'))
         st = S2.status(lure, m)
         if st == 'PENDING': pending.append(sid); continue

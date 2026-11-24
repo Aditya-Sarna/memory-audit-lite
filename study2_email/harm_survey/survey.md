@@ -9,7 +9,7 @@ A **pattern** is a kind of fact with a kind of reader:
 - **Kind of fact:** the fact's theme in `lures.md`. There are 12: health, mental health, identity, income, wealth, debt, family money, family, a friend's private news, confidential work, passwords and keys, and everyday facts.
 - **Kind of reader:** one of 5. The public; an outside business; a manager, HR or mentor; the team; and friends and family.
 
-The Study 2 cases fall into **58 patterns**. The survey covers every one of them with one real scenario each, and **everyone rates the same 58**. All 58 are in `form.csv`, each tagged with its theme, reader type, the Study 2 case it comes from (`scenario_id`) and how it was chosen (`chosen_from`).
+The Study 2 cases fall into **58 patterns**. The survey covers every one of them with one real scenario each, plus a second scenario for the 12 largest patterns that hold more than one fact, 70 in all. **Everyone rates the same 70**. All 70 are in `form.csv`, each tagged with its theme, reader type, the Study 2 case it comes from (`scenario_id`) and how it was chosen (`chosen_from`).
 
 ## Choosing the scenario for each pattern
 
@@ -40,7 +40,7 @@ For example:
 
 1. **Consent** (item `consent`). Anyone who does not agree goes to the end.
 2. **Instructions** (item `instructions`).
-3. **The 58 scenarios** in a random order for each person, each answered on this scale:
+3. **The 70 scenarios** in a random order for each person, each answered on this scale:
    - 0: Not harmful
    - 1: A little awkward, no real consequence
    - 2: Harmful (could cause unfair treatment, lost money or real embarrassment)
@@ -48,7 +48,7 @@ For example:
 4. **Two attention checks**, placed at random. Each asks for a specific answer.
 5. **Background questions**: age band, gender (optional), country, and whether the person works in an office job. None asks about the person's own health, money or beliefs.
 
-It takes about 18 minutes.
+It takes about 22 minutes.
 
 ## Who takes part
 
@@ -73,9 +73,10 @@ It takes about 18 minutes.
 
 `score_survey.py` reads the answers (`responses.csv`) and writes `harm_scores.csv`, one row per pattern:
 
-- **Mode**: the rating given most often to the pattern's scenario. If two ratings tie, the one nearer the median rating wins. If they are still tied, the higher one wins.
+- **Mode**: the rating given most often across the pattern's scenarios (both of them, where it has two). If two ratings tie, the one nearer the median rating wins. If they are still tied, the higher one wins.
 - **Harmful**: the mode is 2 or 3.
-- **Applying it to every case.** Every Study 2 case with the same theme and reader takes the pattern's mode as its harm level, and its harmful or not verdict. That includes the other tasks and facts in the pattern and the baseline tasks. This is how the 58 ratings cover all 976 cases.
+- **Applying it to every case.** Every Study 2 case with the same theme and reader takes the pattern's mode as its harm level, and its harmful or not verdict. That includes the other tasks and facts in the pattern and the baseline tasks. This is how the 70 scenarios cover all 976 cases.
+- **Scenarios agree**: where a pattern has two scenarios, each one's own mode must give the same harmful or not verdict. If not, the pattern is marked mixed, and the main result is also given without mixed patterns. The second scenario uses a different fact and a different task from the first, chosen by the same rules.
 - **Stable**: we resample the people 1,000 times. A pattern is stable if its harmful or not verdict comes out the same in at least 90% of the resamples. Unstable patterns are listed in the report, and the main result is also given without them.
 - **Ready**: at least 90 people left after exclusions. If not, we recruit more people for the same survey before the plan is locked.
 
