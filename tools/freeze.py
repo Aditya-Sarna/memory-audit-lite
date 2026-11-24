@@ -4,7 +4,7 @@ write and write-after-pilot refuse to overwrite an existing freeze unless --forc
 import hashlib, os, sys
 R = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')); M = os.path.join(R, 'FREEZE.sha256')
 START = ['DESIGN.md', 'study1_storage/facts.md', 'study1_storage/feed.py', 'study1_storage/score.py', 'study2_email/lures.md', 'study2_email/scenarios.csv', 'study2_email/score.py',
-         'study2_email/harm_survey/survey.md', 'study2_email/harm_survey/vignettes.csv', 'study2_email/harm_survey/form.csv', 'study2_email/harm_survey/score_survey.py', 'tools/harm.py',
+         'study2_email/harm_survey/survey.md', 'study2_email/harm_survey/form.csv', 'study2_email/harm_survey/score_survey.py', 'tools/harm.py',
          'study2_email/harm_survey/responses.csv', 'study2_email/harm_survey/harm_scores.csv',
          'study3_correction/correction.md', 'study3_correction/bland_saves.txt', 'study3_correction/neutral_prompts.txt', 'study3_correction/build.py', 'study3_correction/score.py',
          'adjudication/PROTOCOL.md', 'adjudication/kappa.py', 'adjudication/plant.py', 'tools/stats.py', 'tools/mdtable.py', 'study1_storage/checkbook.csv', 'study2_email/checkbook.csv']

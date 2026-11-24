@@ -195,7 +195,7 @@ Nothing has been run on a live Claude account yet. Everything below has been che
 | Folder | What it holds |
 | --- | --- |
 | `study1_storage/` | `facts.md` (the 960 facts and their invented words), `feed.py`, `checkbook.csv`, `score.py` |
-| `study2_email/` | `lures.md` (the theme and task maps), `scenarios.csv` (the 976 email test cases and their 525 reply versions), `harm_survey/` (the harm survey: `survey.md`, `vignettes.csv`, `form.csv`, `responses.csv`, `score_survey.py`), `prompt_library.md` and `post_pilot_prompt.md` (both empty for now: the prompt library and the AI judge's instructions are written during the project), `checkbook.csv`, `score.py` |
+| `study2_email/` | `lures.md` (the theme and task maps), `scenarios.csv` (the 976 email test cases and their 525 reply versions), `harm_survey/` (the harm survey: `survey.md`, `form.csv`, `responses.csv`, `score_survey.py`), `prompt_library.md` and `post_pilot_prompt.md` (both empty for now: the prompt library and the AI judge's instructions are written during the project), `checkbook.csv`, `score.py` |
 | `study3_correction/` | `correction.md` (the correction and the run steps), `build.py`, `bland_saves.txt`, `neutral_prompts.txt`, `cases.csv`, `checkbook.csv`, `score.py` |
 | `adjudication/` | `PROTOCOL.md` (how replies are judged), `rulebook.md`, `kappa.py`, `plant.py`, `rounds.csv` |
 | `tools/` | `stats.py`, `mdtable.py`, `freeze.py`, `harm.py` (harm of each case: its pattern's survey verdict, or the provisional score until the survey runs) |

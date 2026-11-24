@@ -12,7 +12,7 @@ HARMFUL_FROM = 2     # a pattern is harmful if its mode is 2 (harmful) or 3 (ser
 MIN_PEOPLE = 90      # included participants needed (about 110 recruited)
 STABLE = 0.90        # a pattern is stable if its harmful / not harmful verdict holds in at least 90% of resamples of people
 SCORE_COLS = ['pattern_id', 'theme', 'reader_class', 'n_ratings', 'mode', 'share_at_mode', 'counts', 'harmful', 'stable']
-def patterns(): return {v['pattern_id']: v for v in csv.DictReader(open(os.path.join(HERE, 'vignettes.csv'), encoding='utf-8'))}
+def patterns(): return {r['item_id']: r for r in csv.DictReader(open(os.path.join(HERE, 'form.csv'), encoding='utf-8')) if r['type'] == 'vignette'}   # one scenario per pattern
 def load(path):
     P = {}
     for r in csv.DictReader(open(path, encoding='utf-8')): P.setdefault(r['participant_id'], {})[r['item_id']] = (r['answer'] or '').strip()

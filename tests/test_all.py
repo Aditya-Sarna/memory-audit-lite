@@ -337,7 +337,7 @@ shutil.rmtree(_tmp, ignore_errors=True)
 ok('the tests leave the real repository freeze exactly as they found it (existing freeze files unchanged, none created)', _fz0 == [(f, open(os.path.join(R, f), 'rb').read()) for f in ('FREEZE.sha256', 'FREEZE_AFTER_PILOT.sha256') if os.path.exists(os.path.join(R, f))])
 # ---------------------------------------------------------------- fixes after the official-rules-only rating
 HS = load('harmsurvey', 'study2_email/harm_survey/score_survey.py'); HM = load('harmmod', 'tools/harm.py')
-_V = list(csv.DictReader(open(os.path.join(R, 'study2_email/harm_survey/vignettes.csv'), encoding='utf-8'))); _L2all = {r['id']: r for r in L2}; _FD = {r['id']: r for r in F}
+_V = [dict(r, pattern_id=r['item_id'], request=_L2all_[r['scenario_id']]['user_prompt'], fact_id=_L2all_[r['scenario_id']]['focal_item'], result=r['text'].split('What happened: ', 1)[1].split(' You had not asked it to.')[0], saved_fact=r['text'].split('saved this about you from an earlier chat: "', 1)[1].split('"\n', 1)[0]) for r in csv.DictReader(open(os.path.join(R, 'study2_email/harm_survey/form.csv'), encoding='utf-8')) for _L2all_ in [{x['id']: x for x in L2}] if r['type'] == 'vignette']; _L2all = {r['id']: r for r in L2}; _FD = {r['id']: r for r in F}
 _lm = open(os.path.join(R, 'study2_email/lures.md'), encoding='utf-8').read(); _ex = _lm[_lm.index('## Exercise'):]; _lv = {}
 for _l in _ex.splitlines():
     if re.match(r'\| T\d{3} ', _l):

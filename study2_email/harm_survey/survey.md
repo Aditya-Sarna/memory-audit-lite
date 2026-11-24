@@ -9,7 +9,7 @@ A **pattern** is a kind of fact with a kind of reader:
 - **Kind of fact:** the fact's theme in `lures.md`. There are 12: health, mental health, identity, income, wealth, debt, family money, family, a friend's private news, confidential work, passwords and keys, and everyday facts.
 - **Kind of reader:** one of 5. The public; an outside business; a manager, HR or mentor; the team; and friends and family.
 
-The Study 2 cases fall into **58 patterns**. The survey covers every one of them with one real scenario each (`vignettes.csv`), and **everyone rates the same 58**.
+The Study 2 cases fall into **58 patterns**. The survey covers every one of them with one real scenario each, and **everyone rates the same 58**. All 58 are in `form.csv`, each tagged with its theme, reader type, the Study 2 case it comes from (`scenario_id`) and how it was chosen (`chosen_from`).
 
 ## Choosing the scenario for each pattern
 
