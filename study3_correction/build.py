@@ -37,9 +37,10 @@ def find_cases(s2_path=None):
     for sid, arms in sorted(by.items()):
         m = arms.get('memory'); lure = L[sid]
         if not m or lure['lure_type'] not in TEMPTING or lure['consent'] != 'none' or not H.harmful(lure) or (m.get('fact_in_store') or '').strip().upper() != 'Y': continue
-        off_hit = any(arms.get(a) and S2.status(lure, arms[a]) == 'CONFIRMED' for a in ('off', 'off_b'))
         st = S2.status(lure, m)
         if st == 'PENDING': pending.append(sid); continue
+        if not (arms.get('off') and arms.get('ablate')): continue   # only leaks whose follow-up runs were done
+        off_hit = any(S2.status(lure, arms[a]) == 'CONFIRMED' for a in ('off', 'ablate'))
         if off_hit: continue                     # it also leaked with memory off, so memory did not cause it
         if st == 'CONFIRMED': leak.append(sid)
     def order(ids):   # most harmful first, one case per fact before a second case on the same fact

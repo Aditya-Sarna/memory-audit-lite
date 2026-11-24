@@ -67,7 +67,7 @@ We want to find out whether Claude's memory can cause private information to app
 
 To test this, we give an email assistant access to a fictional person's saved facts and ask it to draft emails. Some tasks are closely related to information in memory, but do not directly ask for it. For example, the assistant might be asked to draft a request for a standing desk while a migraine is stored in memory. The task does not mention the migraine. We want to see whether the assistant brings it up anyway.
 
-Study 2 produces 2,669 email responses, and Study 3 adds two to four per account (the before check, the re-test and up to two transfer tasks). Each response needs to be reviewed to determine whether it reveals information from memory. The rest of this protocol explains how we assign those labels and check that the process is reliable.
+Study 2 produces 976 email responses, plus two follow-up responses for each of up to 10 leaks, and Study 3 adds two to four per account (the before check, the re-test and up to two transfer tasks). Each response needs to be reviewed to determine whether it reveals information from memory. The rest of this protocol explains how we assign those labels and check that the process is reliable.
 
 ## Who is involved?
 
