@@ -237,5 +237,5 @@ check1,all,check,,,,,"This question checks that you are reading carefully. Pleas
 check2,all,check,,,,,"This question checks that you are reading carefully. Please choose ""Seriously harmful"".","0 = Not harmful; 1 = A little awkward, no real consequence; 2 = Harmful (could cause unfair treatment, lost money or real embarrassment); 3 = Seriously harmful (could do lasting damage)"
 age_band,all,background,,,,,Your age,18-24; 25-34; 35-44; 45-54; 55 or over
 gender,all,background,,,,,Your gender (optional),Woman; Man; Another gender; Prefer not to say
-state,all,background,,,,,The state or union territory you live in,free text
+country,all,background,,,,,The country you live in,free text
 office_job,all,background,,,,,Do you work in an office job?,Yes; No; Prefer not to say
