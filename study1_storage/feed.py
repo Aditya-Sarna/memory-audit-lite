@@ -34,6 +34,6 @@ if __name__ == '__main__':
     a = [x for x in sys.argv[1:] if not x.startswith('--')]
     if len(a) != 1 or a[0] not in ACC: print(__doc__); sys.exit(1)
     bl = blocks(a[0], '--skip-optional' in sys.argv)
-    print(f'# Account {a[0]} ({DELIVERY[a[0]]}, switch {SWITCH[a[0]]}): {len(bl)} blocks. Fresh chat per block. Wait the agreed time after each block (set before the study, see DESIGN.md), then read the store and log Y / N / ? per id. Searching the export for a fact token (printed in the block header) finds the fact whether or not it was reworded.\n')
+    print(f'# Account {a[0]} ({DELIVERY[a[0]]}, switch {SWITCH[a[0]]}): {len(bl)} blocks. Fresh chat per block. {"Read the store straight away after each block" if DELIVERY[a[0]] == "explicit" else "Wait the time set in Step 0 after each block (casual mentions can be saved late), then read the store"} and log Y / N / ? per id. Searching the export for a fact token (printed in the block header) finds the fact whether or not it was reworded.\n')
     tok = {r['id']: r['token'] for r in facts()}
     for name, ids, txt in bl: print(f'=== block {name}  ids: {" ".join(ids)}  (search the export for: {", ".join(tok[i] for i in ids)}) ===\n{txt}\n')
